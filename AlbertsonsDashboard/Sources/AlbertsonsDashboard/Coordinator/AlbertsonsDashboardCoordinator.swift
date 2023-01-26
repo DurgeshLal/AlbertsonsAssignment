@@ -13,13 +13,9 @@ final public class AlbertsonsDashboardCoordinator: Coordinator {
     public var children: [Coordinator] = []
     public var navigationController: UINavigationController
     private var networkManager: NetworkManaging
-    private var formatManager: FormatManaging
-    private var dateManager: DateManaging
     public required init(_ navigationController: UINavigationController, container: ServiceResolving) {
         self.navigationController = navigationController
         self.networkManager = container.resolve()
-        self.formatManager = container.resolve()
-        self.dateManager = container.resolve()
     }
     
     public func start() {
