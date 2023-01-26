@@ -23,16 +23,18 @@ final class AlbertsonsDashboardViewController: UIViewController {
         super.init(coder: coder)
     }
     
-    @available(*, unavailable, renamed: "init(viewModel:coder:)")     required init?(coder: NSCoder) {
+    @available(*, unavailable, renamed: "init(viewModel:coder:)")
+    required init?(coder: NSCoder) {
         fatalError("Invalid way of decoding this class")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Product list"
+        title = "Cat Facts"
         catFactTableView.estimatedRowHeight = 44.0
         catFactTableView.rowHeight = UITableView.automaticDimension
         fetchCatFact()
+        fetchCatImage()
     }
 }
 
@@ -40,6 +42,12 @@ extension AlbertsonsDashboardViewController {
     private func fetchCatFact() {
         viewModel.fetchCatFact { [weak self] success in
             self?.catFactTableView.reloadData()
+        }
+    }
+    
+    private func fetchCatImage() {
+        viewModel.fetchCatImage { [weak self] image in
+            self?.catImagevView.image = image
         }
     }
 }

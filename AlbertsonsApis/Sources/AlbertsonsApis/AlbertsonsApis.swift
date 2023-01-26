@@ -29,9 +29,9 @@ public enum Failure: Error {
 public protocol NetworkManaging {
     typealias RequestParameters = [String : String]
     func request<T: Decodable>(url: String, params: RequestParameters?, callBack: @escaping (Result<T, Failure>) -> Void)
-    func request<T: Decodable>(url: String, params: RequestParameters?, callBack: @escaping (Result<[T], Failure>) -> Void)
-    func request<T: Decodable>(url: String, params: RequestParameters?) async throws -> [T]
-    func request<T: Decodable>(url: String, params: RequestParameters?) -> AnyPublisher<[T], Failure>
+    func request<T: Decodable>(url: String, params: RequestParameters?) async throws -> T
+    func request<T: Decodable>(url: String, params: RequestParameters?) -> AnyPublisher<T, Failure>
+    func request(url: String, callBack: @escaping (Result<Data, Failure>) -> Void)
 }
 
 public extension NetworkManaging {

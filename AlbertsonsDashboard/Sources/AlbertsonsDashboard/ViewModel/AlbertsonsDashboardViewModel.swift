@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class AlbertsonsDashboardViewModel {
     
@@ -28,7 +29,7 @@ extension AlbertsonsDashboardViewModel {
 extension AlbertsonsDashboardViewModel {
     
     func fetchCatFact(_ completion: @escaping (_ success: Bool) -> Void) {
-        dataManager.fetchRandonFact { [weak self] result in
+        dataManager.fetchRandonFact() { [weak self] result in
             switch result {
             case .success(let response):
                 if let data = response.data {
@@ -38,6 +39,18 @@ extension AlbertsonsDashboardViewModel {
             case .failure(let error):
                 print("Error with :\(error)")
                 completion(false)
+            }
+        }
+    }
+    
+    func fetchCatImage(_ completion: @escaping (_ image: UIImage?) -> Void) {
+        dataManager.fetchRandomCatImage { response in
+            switch response {
+            case .success(let image):
+                completion(image)
+            case .failure(let error):
+                print("Error with : \(error)")
+                completion(nil)
             }
         }
     }
