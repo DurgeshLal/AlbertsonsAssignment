@@ -15,6 +15,8 @@ final class AlbertsonsDashboardViewController: UIViewController {
     
     @IBOutlet weak var catImagevView: UIImageView!
     @IBOutlet weak var catFactTableView: UITableView!
+    @IBOutlet weak var catImagevViewActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var catFactTableViewActivityIndicator: UIActivityIndicatorView!
     
     private let viewModel: AlbertsonsDashboardViewModel
     
@@ -42,17 +44,20 @@ extension AlbertsonsDashboardViewController {
     private func fetchCatFact() {
         viewModel.fetchCatFact { [weak self] success in
             self?.catFactTableView.reloadData()
+            self?.catFactTableViewActivityIndicator.stopAnimating()
         }
     }
     
     private func fetchCatImage() {
         viewModel.fetchCatImage { [weak self] image in
             self?.catImagevView.image = image
+            self?.catImagevViewActivityIndicator.stopAnimating()
         }
     }
 }
 
 extension AlbertsonsDashboardViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.numberOfRows
     }
