@@ -9,15 +9,24 @@ import UIKit
 import Foundation
 import AlbertsonsApis
 
+enum Language: String {
+    case eng, ger, ukr, rus, por, esp, cze, ces, fil, urd
+}
+
 protocol AlbertsonsDashboardDataManaging {
-    func fetchRandonFact(_ count: Int?, completion: @escaping (Result<RandomFact, Failure>) -> Void)
-    func fetchRandonFactFor(_ id: Int, completion: @escaping (Result<RandomFact, Failure>) -> Void)
+    func fetchRandonFact(_ count: Int?, language: Language?, completion: @escaping (Result<RandomFact, Failure>) -> Void)
+    func fetchRandonFactFor(_ id: Int, language: Language?, completion: @escaping (Result<RandomFact, Failure>) -> Void)
     func fetchRandomCatImage(_ completion: @escaping (Result<UIImage, Failure>) -> Void)
 }
 
 extension AlbertsonsDashboardDataManaging {
+    
     func fetchRandonFact(_ completion: @escaping (Result<RandomFact, Failure>) -> Void) {
-        self.fetchRandonFact(nil, completion: completion)
+        self.fetchRandonFact(nil,language: nil, completion: completion)
+    }
+    
+    func fetchRandonFactFor(_ id: Int, completion: @escaping (Result<RandomFact, Failure>) -> Void) {
+        self.fetchRandonFactFor(id, language: nil, completion: completion)
     }
 }
 
@@ -28,16 +37,25 @@ struct AlbertsonsDashboardDataManager: AlbertsonsDashboardDataManaging {
         self.networkManager = networkManager
     }
     
-    func fetchRandonFact(_ count: Int?, completion: @escaping (Result<RandomFact, Failure>) -> Void) {
-        var param: [String : String] = [:]
+    func fetchRandonFact(_ count: Int?, language: Language?, completion: @escaping (Result<RandomFact, Failure>) -> Void) {
+        var params: [String : String] = [:]
         if let count = count {
-            param["count"] = "\(count)"
+            params["count"] = "\(count)"
         }
-        fetchRandonFact(param, completion: completion)
+        
+        if let language = language {
+            params["lang"] = language.rawValue
+        }
+        
+        fetchRandonFact(params, completion: completion)
     }
     
-    func fetchRandonFactFor(_ id: Int, completion: @escaping (Result<RandomFact, Failure>) -> Void) {
-        fetchRandonFact(["id" : "\(id)"], completion: completion)
+    func fetchRandonFactFor(_ id: Int, language: Language?, completion: @escaping (Result<RandomFact, Failure>) -> Void) {
+        var params: [String : String] = ["id" : "\(id)"]
+        if let language = language {
+            params["lang"] = language.rawValue
+        }
+        fetchRandonFact(params, completion: completion)
     }
     
     private func fetchRandonFact(_ params: [String : String]? = nil, completion: @escaping (Result<RandomFact, Failure>) -> Void) {

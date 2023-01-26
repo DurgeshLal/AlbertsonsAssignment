@@ -29,11 +29,26 @@ extension AlbertsonsDashboardViewModel {
 extension AlbertsonsDashboardViewModel {
     
     func fetchCatFact(_ completion: @escaping (_ success: Bool) -> Void) {
+        // Fetch a random fact in English
         dataManager.fetchRandonFact() { [weak self] result in
             switch result {
             case .success(let response):
                 if let data = response.data {
-                    self?.catFacts = data
+                    self?.catFacts += data
+                    completion(true)
+                }
+            case .failure(let error):
+                print("Error with :\(error)")
+                completion(false)
+            }
+        }
+        
+        // Fetch a random fact in foreign English
+        dataManager.fetchRandonFact(1, language: .ger) { [weak self] result in
+            switch result {
+            case .success(let response):
+                if let data = response.data {
+                    self?.catFacts += data
                     completion(true)
                 }
             case .failure(let error):
