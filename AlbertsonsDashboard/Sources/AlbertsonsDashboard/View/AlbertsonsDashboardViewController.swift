@@ -71,3 +71,11 @@ extension AlbertsonsDashboardViewController: UITableViewDataSource {
         return UITableViewCell()
     }
 }
+
+extension AlbertsonsDashboardViewController {
+    @IBAction func refreshCatFact(_ sender: UITapGestureRecognizer) {
+        viewModel.clearDataSource()
+        fetchCatFact()
+        fetchCatImage()
+    }
+}

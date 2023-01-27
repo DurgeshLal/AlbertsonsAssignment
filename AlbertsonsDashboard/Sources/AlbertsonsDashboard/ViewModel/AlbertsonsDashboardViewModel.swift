@@ -24,6 +24,10 @@ extension AlbertsonsDashboardViewModel {
     func catFactAtIndex(_ index: Int) -> String? {
         catFacts[index]
     }
+    
+    func clearDataSource() {
+        catFacts = []
+    }
 }
 
 extension AlbertsonsDashboardViewModel {

@@ -13,6 +13,7 @@ final public class AlbertsonsDashboardCoordinator: Coordinator {
     public var children: [Coordinator] = []
     public var navigationController: UINavigationController
     private var networkManager: NetworkManaging
+    
     public required init(_ navigationController: UINavigationController, container: ServiceResolving) {
         self.navigationController = navigationController
         self.networkManager = container.resolve()

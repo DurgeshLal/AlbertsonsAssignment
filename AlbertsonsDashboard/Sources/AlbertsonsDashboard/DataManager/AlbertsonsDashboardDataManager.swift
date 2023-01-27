@@ -65,7 +65,9 @@ struct AlbertsonsDashboardDataManager: AlbertsonsDashboardDataManaging {
 
 extension AlbertsonsDashboardDataManager {
     func fetchRandomCatImage(_ completion: @escaping (Result<UIImage, Failure>) -> Void) {
-        networkManager.request(url: "https://placekitten.com/g/200/300") { response in
+        let width = Int.random(in: 200...600)
+        let height = Int.random(in: 200...600)
+        networkManager.request(url: "https://placekitten.com/g/\(width)/\(height)") { response in
             switch response {
             case .success(let data):
                 if let image = UIImage(data: data) {
