@@ -46,7 +46,7 @@ extension AlbertsonsDashboardViewModel {
                 completion(false)
             }
         }
-        
+        /*
         // Fetch a random fact in foreign English
         dataManager.fetchRandonFact(1, language: .ger) { [weak self] result in
             switch result {
@@ -60,6 +60,7 @@ extension AlbertsonsDashboardViewModel {
                 completion(false)
             }
         }
+         */
     }
     
     func fetchCatImage(_ completion: @escaping (_ image: UIImage?) -> Void) {

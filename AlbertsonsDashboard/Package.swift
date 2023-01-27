@@ -26,6 +26,11 @@ let package = Package(
         ),
         .testTarget(
             name: "AlbertsonsDashboardTests",
-            dependencies: ["AlbertsonsDashboard"]),
+            dependencies: ["AlbertsonsDashboard"],
+            path: "Tests/",
+            resources: [
+                .process("AlbertsonsDashboardTests/AlbertsonsDashboard/MockJson/CatFacts.json")
+            ]
+        ),
     ]
 )
